@@ -5,17 +5,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ---------- Personal details (Rajanshi Awasthi) ----------
-const FULL_NAME = "rajanshi_awasthi"; // lowercase + underscores
+const FULL_NAME = "rajanshi_awasthi"; 
 const DOB_DDMMYYYY = "15122002";
 const EMAIL = "rajanshiawasthi@gmail.com";
 const ROLL = "22BCE7579";
 
-// ---------- Utility Functions ----------
 const isDigitsOnly = (s) => /^[0-9]+$/.test(s);
 const isLettersOnly = (s) => /^[A-Za-z]+$/.test(s);
 
-// alternating caps after reversing characters
 const toAlternatingCaps = (s) => {
   let result = "";
   let upper = true;
@@ -30,7 +27,6 @@ const toAlternatingCaps = (s) => {
   return result;
 };
 
-// ---------- POST /bfhl ----------
 app.post("/bfhl", (req, res) => {
   try {
     const arr = Array.isArray(req.body.data) ? req.body.data : null;
@@ -111,7 +107,6 @@ app.post("/bfhl", (req, res) => {
   }
 });
 
-// ---------- Health check ----------
 app.get("/", (_req, res) => {
   res.status(200).json({
     status: "Running",
@@ -121,7 +116,6 @@ app.get("/", (_req, res) => {
   });
 });
 
-// ---------- Start server (for local testing) ----------
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`BFHL API running on port ${PORT}`);
