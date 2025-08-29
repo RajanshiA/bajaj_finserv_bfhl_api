@@ -27,6 +27,10 @@ const toAlternatingCaps = (s) => {
   return result;
 };
 
+app.get("/bfhl", (_req, res) => {
+  res.status(200).send("API is running! Use POST /bfhl using postman or thunderclient");
+});
+
 app.post("/bfhl", (req, res) => {
   try {
     const arr = Array.isArray(req.body.data) ? req.body.data : null;
@@ -50,13 +54,11 @@ app.post("/bfhl", (req, res) => {
     const odd_numbers = [];
     const alphabets = [];
     const special_characters = [];
-
     let sumNumbers = 0;
     let flatLetters = "";
 
     for (const raw of arr) {
       const s = String(raw);
-
       if (isDigitsOnly(s)) {
         const val = Number(s);
         if (!Number.isNaN(val)) {
@@ -90,7 +92,7 @@ app.post("/bfhl", (req, res) => {
       sum: String(sumNumbers),
       concat_string
     });
-  } catch (err) {
+  } catch {
     return res.status(200).json({
       is_success: false,
       user_id: `${FULL_NAME}_${DOB_DDMMYYYY}`,
@@ -107,16 +109,4 @@ app.post("/bfhl", (req, res) => {
   }
 });
 
-app.get("/", (_req, res) => {
-  res.status(200).json({
-    status: "Running",
-    route: "/bfhl",
-    method: "POST",
-    example: { data: ["a", "1", "334", "4", "R", "$"] }
-  });
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`BFHL API running on port ${PORT}`);
-});
+export default app;
